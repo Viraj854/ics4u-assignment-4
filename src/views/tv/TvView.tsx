@@ -1,14 +1,14 @@
 import { LinkGroup, Loading, Modal } from '@/components'
-import { IMAGE_BASE_URL, MOVIE_ENDPOINT, ORIGINAL_IMAGE_BASE_URL } from '@/core/constants'
+import { IMAGE_BASE_URL, ORIGINAL_IMAGE_BASE_URL, TV_ENDPOINT } from '@/core/constants'
 import type { MovieRepsonse } from '@/core/types'
 import { useTmdb } from '@/hooks'
 import { FiStar } from 'react-icons/fi'
 import { Outlet, useNavigate, useParams } from 'react-router-dom'
 
-export const MovieView = () => {
+export const TvView = () => {
   const { id } = useParams()
   const navigate = useNavigate()
-  const { data, loading } = useTmdb<MovieRepsonse>(`${MOVIE_ENDPOINT}/${id}`, {}, [id])
+  const { data, loading } = useTmdb<MovieRepsonse>(`${TV_ENDPOINT}/${id}`, {}, [id])
 
   if (loading) {
     return (
@@ -20,8 +20,8 @@ export const MovieView = () => {
 
   if (!data) return null
 
-  const title = data.title ?? data.name ?? 'Unknown'
-  const year = data.release_date ? new Date(data.release_date).getFullYear() : ''
+  const title = data.name ?? data.title ?? 'Unknown'
+  const year = data.first_air_date ? new Date(data.first_air_date).getFullYear() : ''
   const score = typeof data.vote_average === 'number' ? data.vote_average.toFixed(1) : '—'
 
   return (
@@ -34,7 +34,6 @@ export const MovieView = () => {
             alt={title}
             className="h-full w-full object-cover"
           />
-
           <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
         </div>
       )}
@@ -50,13 +49,13 @@ export const MovieView = () => {
         )}
 
         <div className="flex-1 space-y-3 pt-2 sm:pt-8">
-          <h2 className="text-2xl font-semibold text-gray-900">
-            {title}
-          </h2>
+          <h2 className="text-2xl font-semibold text-gray-900">{title}</h2>
 
           <div className="flex items-center gap-4 text-sm text-gray-500">
             {year && <span>{year}</span>}
-
+            {data.number_of_seasons && (
+              <span>{data.number_of_seasons} Season{data.number_of_seasons !== 1 ? 's' : ''}</span>
+            )}
             <span className="flex items-center gap-1 font-medium text-gray-700">
               <FiStar size={14} />
               {score}
@@ -72,9 +71,10 @@ export const MovieView = () => {
       <div className="bg-white px-6 pb-4">
         <LinkGroup
           links={[
-            { label: 'Credits', to: `/movie/${id}/credits` },
-            { label: 'Trailers', to: `/movie/${id}/trailers` },
-            { label: 'Reviews', to: `/movie/${id}/reviews` },
+            { label: 'Credits', to: `/tv/${id}/credits` },
+            { label: 'Trailers', to: `/tv/${id}/trailers` },
+            { label: 'Reviews', to: `/tv/${id}/reviews` },
+            { label: 'Seasons', to: `/tv/${id}/seasons` },
           ]}
         />
         <div className="pt-4">

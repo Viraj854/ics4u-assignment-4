@@ -1,17 +1,57 @@
-import { Button } from '@/components';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom'
 
 export const HomeView = () => {
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
   return (
-    <main className="min-h-screen bg-gray-900 text-white flex items-center justify-center">
-      <section className="max-w-3xl w-full text-center space-y-8">
-        <h1 className="text-5xl font-bold tracking-tight">TMDB Explorer</h1>
-        <p className="text-gray-400 text-lg">Explore movies and discover people using a fast, modern interface.</p>
-        <Button onClick={() => navigate('/now-playing')}>Enter</Button>
-        <footer className="pt-10 text-sm text-gray-500">Built with React, Vite and React Router</footer>
+    <main className="flex min-h-[calc(100vh-4rem)] flex-col items-center justify-center bg-white px-6">
+      <section className="w-full max-w-3xl space-y-10 text-center">
+        
+        {/* Logo */}
+        <h1 className="text-6xl font-semibold tracking-tight text-gray-900">
+          TMDB Explorer
+        </h1>
+
+        {/* Subtitle */}
+        <p className="mx-auto max-w-xl text-base text-gray-500">
+          Search movies, TV shows, and people.
+        </p>
+
+        {/* Main actions */}
+        <div className="flex flex-wrap items-center justify-center gap-4">
+          <button
+            onClick={() => navigate('/movies')}
+            className="rounded-lg bg-gray-900 px-6 py-3 text-sm font-medium text-white transition hover:bg-gray-800"
+          >
+            Browse Movies
+          </button>
+
+          <button
+            onClick={() => navigate('/television')}
+            className="rounded-lg border border-gray-300 bg-white px-6 py-3 text-sm font-medium text-gray-700 transition hover:bg-gray-100"
+          >
+            Browse TV
+          </button>
+        </div>
+
+        {/* Secondary links */}
+        <div className="flex justify-center gap-6 pt-4">
+          {[
+            { label: 'Trending', path: '/trending' },
+            { label: 'Genre', path: '/genre' },
+            { label: 'Search', path: '/search' },
+          ].map((item) => (
+            <button
+              key={item.path}
+              onClick={() => navigate(item.path)}
+              className="text-sm text-gray-500 transition hover:text-gray-900"
+            >
+              {item.label}
+            </button>
+          ))}
+        </div>
+
       </section>
     </main>
-  );
-};
+  )
+}

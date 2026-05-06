@@ -1,17 +1,17 @@
 import { Loading, Pagination } from '@/components'
-import { MOVIE_ENDPOINT } from '@/core/constants'
+import { TV_ENDPOINT } from '@/core/constants'
 import type { ReviewsResponse } from '@/core/types'
 import { useTmdb } from '@/hooks'
 import { useState } from 'react'
 import { useParams } from 'react-router-dom'
 
-export const ReviewsView = () => {
+export const TvReviewsView = () => {
   const { id } = useParams()
   const [page, setPage] = useState(1)
   const { data, loading } = useTmdb<ReviewsResponse>(
-    `${MOVIE_ENDPOINT}/${id}/reviews`,
+    `${TV_ENDPOINT}/${id}/reviews`,
     { page },
-    [id, page]
+    [id, page],
   )
 
   if (loading) return <Loading />
@@ -45,7 +45,13 @@ export const ReviewsView = () => {
             ))}
           </div>
 
-          <Pagination page={page} maxPages={data.total_pages} onClick={setPage} />
+          <div className="pt-4">
+            <Pagination
+              page={page}
+              maxPages={data.total_pages}
+              onClick={setPage}
+            />
+          </div>
         </>
       ) : (
         <p className="py-12 text-center text-gray-400">

@@ -3,7 +3,6 @@ import { TRENDING_ENDPOINT } from '@/core/constants'
 import type { TrendingResponse } from '@/core/types'
 import { useTmdb } from '@/hooks'
 import { useState } from 'react'
-import { FiFilm, FiTv } from 'react-icons/fi'
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom'
 
 const MEDIA_TYPES = [
@@ -50,7 +49,6 @@ export const TrendingView = () => {
       <SectionHeader title="Trending">
         <div className="flex items-center gap-3">
           <div className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-zinc-500">
-            {mediaType === 'movie' ? <FiFilm size={13} /> : <FiTv size={13} />}
           </div>
           <ButtonGroup value={mediaType} options={MEDIA_TYPES} onClick={handleMediaChange} />
           <ButtonGroup value={interval} options={INTERVALS} onClick={handleIntervalChange} />

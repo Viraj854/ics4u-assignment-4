@@ -1,8 +1,7 @@
 import { ImageGrid, Loading, Pagination, SectionHeader } from '@/components'
-import { API_KEY, SEARCH_MOVIE_ENDPOINT, SEARCH_PERSON_ENDPOINT, SEARCH_TV_ENDPOINT } from '@/core/constants'
+import { SEARCH_MOVIE_ENDPOINT, SEARCH_PERSON_ENDPOINT, SEARCH_TV_ENDPOINT } from '@/core/constants'
 import type { SearchResponse } from '@/core/types'
 import { useTmdb } from '@/hooks'
-import axios from 'axios'
 import { useEffect, useState } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 

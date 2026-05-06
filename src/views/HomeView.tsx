@@ -6,18 +6,15 @@ export const HomeView = () => {
   return (
     <main className="flex min-h-[calc(100vh-4rem)] flex-col items-center justify-center bg-white px-6">
       <section className="w-full max-w-3xl space-y-10 text-center">
-        
-        {/* Logo */}
+
         <h1 className="text-6xl font-semibold tracking-tight text-gray-900">
           TMDB Explorer
         </h1>
 
-        {/* Subtitle */}
         <p className="mx-auto max-w-xl text-base text-gray-500">
-          Search movies, TV shows, and people.
+          Search movies and TV shows.
         </p>
 
-        {/* Main actions */}
         <div className="flex flex-wrap items-center justify-center gap-4">
           <button
             onClick={() => navigate('/movies')}
@@ -33,24 +30,6 @@ export const HomeView = () => {
             Browse TV
           </button>
         </div>
-
-        {/* Secondary links */}
-        <div className="flex justify-center gap-6 pt-4">
-          {[
-            { label: 'Trending', path: '/trending' },
-            { label: 'Genre', path: '/genre' },
-            { label: 'Search', path: '/search' },
-          ].map((item) => (
-            <button
-              key={item.path}
-              onClick={() => navigate(item.path)}
-              className="text-sm text-gray-500 transition hover:text-gray-900"
-            >
-              {item.label}
-            </button>
-          ))}
-        </div>
-
       </section>
     </main>
   )
